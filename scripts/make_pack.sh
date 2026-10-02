@@ -51,6 +51,7 @@ mkdir -p pack-$VERSION/plgi/prolog
 cp $TOPDIR/prolog/plgi.pl pack-$VERSION/plgi/prolog/
 mkdir -p pack-$VERSION/plgi/prolog/plgi
 cp $TOPDIR/prolog/overrides/*.pl pack-$VERSION/plgi/prolog/plgi/
+cp -pR $TOPDIR/prolog/overrides pack-$VERSION/plgi/prolog/
 
 mkdir -p pack-$VERSION/plgi/src
 cp $TOPDIR/src/*.{c,h} pack-$VERSION/plgi/src/
