@@ -3,3 +3,5 @@ config.log
 config.status
 configure
 Makefile
+scripts/pack-*/
+test/g-ir-cpp-*.c
