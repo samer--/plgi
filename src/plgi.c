@@ -53,7 +53,7 @@ plgi_main_loop_service_task(gpointer data)
 }
 
 
-void plgi_calling_context(control_t *context, atom_t *module, atom_t *name, int *arity)
+void plgi_calling_context(control_t context, atom_t *module, atom_t *name, int *arity)
 {
   predicate_t pred;
   module_t m;
