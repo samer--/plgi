@@ -175,7 +175,6 @@ plgi_callback_marshaller(ffi_cif  *cif,
 
   qid = PL_open_query(module, PL_Q_NORMAL|PL_Q_CATCH_EXCEPTION, predicate, t0);
   ret = PL_next_solution(qid);
-  PL_cut_query(qid);
 
   except = PL_exception(qid);
   if ( except )
@@ -191,6 +190,7 @@ plgi_callback_marshaller(ffi_cif  *cif,
     PL_call_predicate(module, PL_Q_NODEBUG|PL_Q_CATCH_EXCEPTION, print_message, ex_args);
     PL_clear_exception();
   }
+  PL_cut_query(qid);
 
   PLGI_debug("  callback retval: %d", ret);
 

@@ -154,7 +154,6 @@ void plgi_signal_marshaller(GClosure     *closure,
 
   qid = PL_open_query(module, PL_Q_NORMAL|PL_Q_CATCH_EXCEPTION, predicate, t0);
   ret = PL_next_solution(qid);
-  PL_cut_query(qid);
 
   except = PL_exception(qid);
   if ( except )
@@ -170,6 +169,7 @@ void plgi_signal_marshaller(GClosure     *closure,
     PL_call_predicate(module, PL_Q_NODEBUG|PL_Q_CATCH_EXCEPTION, print_message, ex_args);
     PL_clear_exception();
   }
+  PL_cut_query(qid);
 
   PLGI_debug("    signal handler retval: %d", ret);
 
