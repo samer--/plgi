@@ -1,8 +1,9 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT(src/plgi.h)
-AC_PREREQ([2.50])
-AC_CONFIG_HEADER(src/config.h)
+AC_INIT
+AC_CONFIG_SRCDIR([src/plgi.h])
+AC_PREREQ([2.72])
+AC_CONFIG_HEADERS([src/config.h])
 
 AC_SUBST(CC)
 AC_SUBST(SWI_CFLAGS)
@@ -38,4 +39,5 @@ GI_DATADIR=$($PKG_CONFIG --variable=gidatadir gobject-introspection-1.0)
 SOTARGET="plgi.$SO"
 PLTARGET=`echo $SOTARGET | sed "s/\.$SO/.pl/g"`
 
-AC_OUTPUT(Makefile src/Makefile test/Makefile)
+AC_CONFIG_FILES([Makefile src/Makefile test/Makefile])
+AC_OUTPUT
