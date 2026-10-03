@@ -7,7 +7,7 @@
 
 :- use_module(library(plgi)).
 
-:- plgi_use_namespace('Gtk').
+:- plgi_use_namespace('Gtk', '3.0').
 
 on_switch_activated(Button, _GParam, _UserData) :-
 	(   gtk_switch_get_active(Button, true)

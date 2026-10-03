@@ -18,6 +18,7 @@
 
 :- module(plgi, [
                  plgi_use_namespace/1,
+                 plgi_use_namespace/2,
                  plgi_use_namespace_from_dir/2,
                  plgi_current_namespace/1,
 
@@ -55,6 +56,14 @@ user:file_search_path(plgi, library(plgi)).
 
 plgi_use_namespace(Namespace) :-
 	plgi_load_namespace(Namespace),
+	plgi_import_namespace(Namespace),
+	plgi_namespace_deps(Namespace, Dependencies),
+	forall(member(Dependency, Dependencies),
+	       plgi_use_namespace(Dependency)
+	      ).
+
+plgi_use_namespace(Namespace, Version) :-
+	plgi_load_namespace_version(Namespace, Version),
 	plgi_import_namespace(Namespace),
 	plgi_namespace_deps(Namespace, Dependencies),
 	forall(member(Dependency, Dependencies),

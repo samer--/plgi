@@ -7,7 +7,7 @@
 
 :- use_module(library(plgi)).
 
-:- plgi_use_namespace('Gtk').
+:- plgi_use_namespace('Gtk', '3.0').
 
 on_button_toggled(Button, Spinner) :-
 	(   gtk_toggle_button_get_active(Button, true)

@@ -53,7 +53,7 @@ plgi_main_loop_service_task(gpointer data)
 }
 
 
-void plgi_calling_context(control_t *context, atom_t *module, atom_t *name, int *arity)
+void plgi_calling_context(control_t context, atom_t *module, atom_t *name, int *arity)
 {
   predicate_t pred;
   module_t m;
@@ -388,6 +388,7 @@ install_t
 install_plgi()
 {
   PLGI_PRED_REG("plgi_load_namespace", 1, plgi_load_namespace);
+  PLGI_PRED_REG("plgi_load_namespace_version", 2, plgi_load_namespace_version);
   PLGI_PRED_REG("plgi_load_namespace_from_dir", 2, plgi_load_namespace_from_dir);
   PLGI_PRED_REG("plgi_namespace_deps", 2, plgi_namespace_deps);
   PLGI_PRED_NDET_REG("plgi_current_namespace", 1, plgi_current_namespace);

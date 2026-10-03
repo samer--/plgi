@@ -23,7 +23,7 @@ QUIET_LD= @echo "   [LD]      $@" 1>&2;
 QUIET_COPY= @echo "   [COPY]    $@" 1>&2;
 QUIET_GEN= @echo "   [GEN]     $@" 1>&2;
 
-CFLAGS+= -Wall -fPIC -I. -I../src @SWI_CFLAGS@ @GI_CFLAGS@ -D_GI_DISABLE_CAIRO
+CFLAGS+= -Wall -fPIC -I. -I../src @GI_CFLAGS@ -DGI_TEST_DISABLE_CAIRO
 LDFLAGS= -Wall -shared @GI_LIBS@
 
 CC=@CC@
@@ -106,7 +106,7 @@ Regress-1.0.typelib: Regress-1.0.gir
 	$(QUIET_GEN)g-ir-compiler $^ -o $@
 
 Regress-1.0.gir: libregresstests-1.0.so
-	$(QUIET_GEN)CC=$(CC) g-ir-scanner --warn-all --quiet --namespace=Regress --nsversion=1.0 --no-libtool --include=Gio-2.0 --library=regresstests-1.0 --output=$@ -D _GI_DISABLE_CAIRO regress.h regress.c
+	$(QUIET_GEN)CC=$(CC) g-ir-scanner --warn-all --quiet --namespace=Regress --nsversion=1.0 --no-libtool --include=Gio-2.0 --library=regresstests-1.0 --output=$@ -DGI_TEST_DISABLE_CAIRO regress.h regress.c
 
 libregresstests-1.0.so: regress.o
 	$(QUIET_LD)$(CC) -o $@ $^ $(LDFLAGS)

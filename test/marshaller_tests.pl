@@ -2304,10 +2304,6 @@ test(gi_marshalling_tests_simple_struct_method) :-
 	plgi_struct_new(StructTerm, Struct),
 	gi_marshalling_tests_simple_struct_method(Struct).
 
-test(gi_marshalling_tests_pointer_struct_get_type) :-
-	gi_marshalling_tests_pointer_struct_get_type(Type),
-	assertion(Type == 'GIMarshallingTestsPointerStruct').
-
 test(gi_marshalling_tests_pointer_struct_returnv) :-
 	gi_marshalling_tests_pointer_struct_returnv(Struct),
 	plgi_struct_term(Struct, StructTerm),

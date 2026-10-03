@@ -27,9 +27,6 @@ install:
 check:
 	(cd test && $(MAKE) check)
 
-pack:
-	scripts/make_pack.sh
-
 clean:
 	(cd src && $(MAKE) clean)
 	(cd test && $(MAKE) clean)

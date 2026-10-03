@@ -7,7 +7,7 @@
 
 :- use_module(library(plgi)).
 
-:- plgi_use_namespace('Gtk').
+:- plgi_use_namespace('Gtk', '3.0').
 
 target_entry_id('TEXT',   0).
 target_entry_id('PIXBUF', 1).

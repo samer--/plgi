@@ -7,7 +7,7 @@
 
 :- use_module(library(plgi)).
 
-:- plgi_use_namespace('Gtk').
+:- plgi_use_namespace('Gtk', '3.0').
 
 on_click_me_clicked(_Button, _UserData) :-
 	writeln('"Click Me" button was clicked').

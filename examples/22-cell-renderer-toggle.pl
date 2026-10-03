@@ -7,7 +7,7 @@
 
 :- use_module(library(plgi)).
 
-:- plgi_use_namespace('Gtk').
+:- plgi_use_namespace('Gtk', '3.0').
 
 on_cell_toggled(_Renderer, Path, ListStore) :-
 	gtk_tree_model_get_iter_from_string(ListStore, Iter, Path, _),

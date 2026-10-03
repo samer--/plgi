@@ -7,7 +7,7 @@
 
 :- use_module(library(plgi)).
 
-:- plgi_use_namespace('Gtk').
+:- plgi_use_namespace('Gtk', '3.0').
 
 copy_text(_Button, Entry) :-
 	gtk_entry_get_text(Entry, Text),

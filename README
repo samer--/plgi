@@ -4,6 +4,8 @@ Perhaps the most notable use for PLGI is to write Gtk+ applications in Prolog. T
 
 A number of short example programs exist in the plgi/examples directory highlighting some of the capabilities of PLGI.
 
+This is a fork of Keri Harris's original version, which had gone stale. This fork has been updated to work with recent versions of SWI Prolog and GTK 3. It may work with GTK 4 but this has not been tested. The package has been renamed plgi2 so that it can be distributed directly from my Github repo without clashing with the original.
+-- Samer Abdallah, 3/10/2026.
 
 
 Installation
@@ -13,20 +15,22 @@ PLGI has the following requirements:
 
 * SWI-Prolog >= 7.3.3 [1]
 * GLib-2.0 [2]
-* GObject Introspection >= 1.40 [3]
+* GObject Introspection >= 1.72 [3]
 * pkg-config [4]
 
 The easiest way to install PLGI is by using SWI-Prolog's package manager:
 
 	?- pack_install(plgi).
 
-PLGI can also be compiled and installed directly from sources in the following manner:
+PLGI can also be compiled and installed directly from sources in the following manner.
+[As of today, `swipl pack install .` is not invoking the build script, so the following method passes goals to swipl.]
 
-	% cd plgi-$VERSION
-	% autoconf
-	% ./configure
-	% make
-	% make install
+	% cd <this directory>
+	% swipl -g 'pack_install(.,[interactive(false),link(false)])' -t halt
+
+The `plgi.so` binary will be built using SWI Prolog's own build system. This will deposit a file `buildenv.sh`, which can be `source`d for rebuilding outside of SWI Prolog. To force a reinstall when the package is already installed, do:
+
+	% swipl -g 'pack_remove(plgi), pack_install(.,[interactive(false),link(false)])' -t halt
 
 [1] http://www.swi-prolog.org/
 [2] https://wiki.gnome.org/Projects/GLib

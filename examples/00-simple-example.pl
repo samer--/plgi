@@ -7,7 +7,7 @@
 
 :- use_module(library(plgi)).
 
-:- plgi_use_namespace('Gtk').
+:- plgi_use_namespace('Gtk', '3.0').
 
 main :-
 	gtk_window_new('GTK_WINDOW_TOPLEVEL', Window),

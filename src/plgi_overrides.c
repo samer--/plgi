@@ -68,7 +68,6 @@ plgi_idle_marshaller(gpointer data)
 
   qid = PL_open_query(module, PL_Q_NORMAL|PL_Q_CATCH_EXCEPTION, predicate, user_data);
   ret = PL_next_solution(qid);
-  PL_cut_query(qid);
 
   except = PL_exception(qid);
   if ( except )
@@ -77,10 +76,12 @@ plgi_idle_marshaller(gpointer data)
     predicate_t print_message = PL_predicate("print_message", 2, "user");
     term_t ex_args = PL_new_term_refs(2);
     PL_put_atom(ex_args+0, PL_new_atom("error"));
-    PL_put_term(ex_args+1, except);
-    PL_call_predicate(module, PL_Q_NODEBUG|PL_Q_CATCH_EXCEPTION, print_message, ex_args);
+    if ( PL_put_term(ex_args+1, except) )
+    { PL_call_predicate(module, PL_Q_NODEBUG|PL_Q_CATCH_EXCEPTION, print_message, ex_args);
+    }
     PL_clear_exception();
   }
+  PL_cut_query(qid);
 
   PLGI_debug("  idle goal retval: %d", ret);
 

@@ -7,7 +7,7 @@
 
 :- use_module(library(plgi)).
 
-:- plgi_use_namespace('Gtk').
+:- plgi_use_namespace('Gtk', '3.0').
 
 text_edited(_Renderer, Path, Text, ListStore) :-
 	g_value_init('gchararray', TextValue),

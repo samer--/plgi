@@ -150,6 +150,7 @@ void plgi_register_enum(atom_t namespace, GIEnumInfo *enum_info);
 void plgi_register_callback(atom_t namespace, GICallbackInfo *callback_info);
 
 PLGI_PRED_DEF(plgi_load_namespace);
+PLGI_PRED_DEF(plgi_load_namespace_version);
 PLGI_PRED_DEF(plgi_load_namespace_from_dir);
 PLGI_PRED_DEF(plgi_namespace_deps);
 PLGI_PRED_DEF(plgi_current_namespace);

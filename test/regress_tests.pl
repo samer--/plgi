@@ -1082,8 +1082,8 @@ test(regress_test_ghash_gvalue_return) :-
 	assertion(g_is_value(FlagsGValue)),
 	assertion(g_value_holds(FlagsGValue, 'RegressTestFlags')),
 	g_value_get_flags(FlagsGValue, FlagValue),
-	plgi_enum_value('TEST_FLAG1', RegressTestFlag1),
-	plgi_enum_value('TEST_FLAG3', RegressTestFlag3),
+	plgi_enum_value('REGRESS_TEST_FLAG1', RegressTestFlag1),
+	plgi_enum_value('REGRESS_TEST_FLAG3', RegressTestFlag3),
 	assertion(FlagValue =:= RegressTestFlag1 \/ RegressTestFlag3),
 	assertion(g_is_value(IntegerGValue)),
 	assertion(g_value_holds(IntegerGValue, 'gint')),
@@ -1108,7 +1108,7 @@ test(regress_test_ghash_gvalue_in) :-
 	g_value_init('GStrv', StringsGValue),
 	g_value_set_boxed(StringsGValue, ['first', 'second', 'third']),
 	g_value_init('RegressTestFlags', FlagsGValue),
-	g_value_set_flags(FlagsGValue, ['TEST_FLAG1', 'TEST_FLAG3']),
+	g_value_set_flags(FlagsGValue, ['REGRESS_TEST_FLAG1', 'REGRESS_TEST_FLAG3']),
 	g_value_init('RegressTestEnum', EnumGValue),
 	g_value_set_enum(EnumGValue, 'REGRESS_TEST_VALUE2'),
 	List = ['integer'-IntegerGValue,
@@ -1226,7 +1226,7 @@ test(regress_test_unsigned_enum_param_value2) :-
 
 test(regress_global_get_flags_out) :-
 	regress_global_get_flags_out(Flags),
-	assertion(Flags == ['TEST_FLAG1', 'TEST_FLAG3']).
+	assertion(Flags == ['REGRESS_TEST_FLAG1', 'REGRESS_TEST_FLAG3']).
 
 :- end_tests(plgi_regress_flags).
 
@@ -1400,7 +1400,7 @@ test(regress_test_boxed_b_copy) :-
 test(regress_test_boxed_c_new) :-
 	regress_test_boxed_c_new(Boxed),
 	plgi_struct_term(Boxed, BoxedTerm),
-	assertion(BoxedTerm == 'RegressTestBoxedC'( 'refcount'=1, 'another_thing'=42 )).
+	assertion(BoxedTerm == 'RegressTestBoxedC'( 'refcount'=1, 'another_thing'=42, 'name_conflict'=false )).
 
 test(regress_test_boxed_d_new) :-
 	regress_test_boxed_d_new('foo', 42, Boxed),
@@ -1500,8 +1500,8 @@ user:sig_handler__hashtable(_Object, List, _UserData) :-
 	assertion(g_is_value(FlagsGValue)),
 	assertion(g_value_holds(FlagsGValue, 'RegressTestFlags')),
 	g_value_get_flags(FlagsGValue, FlagValue),
-	plgi_enum_value('TEST_FLAG1', RegressTestFlag1),
-	plgi_enum_value('TEST_FLAG3', RegressTestFlag3),
+	plgi_enum_value('REGRESS_TEST_FLAG1', RegressTestFlag1),
+	plgi_enum_value('REGRESS_TEST_FLAG3', RegressTestFlag3),
 	assertion(FlagValue =:= RegressTestFlag1 \/ RegressTestFlag3),
 	assertion(g_is_value(IntegerGValue)),
 	assertion(g_value_holds(IntegerGValue, 'gint')),
@@ -1530,7 +1530,8 @@ user:sig_handler__object(_Object, Object, _UserData) :-
 user:sig_handler__run_type(Object, ExpectedRunType) :-
 	g_signal_get_invocation_hint(Object, InvocationHint),
 	plgi_struct_get_field(InvocationHint, 'run_type', RunType),
-	assertion(RunType == [ExpectedRunType]),
+	sort(RunType, RunTypeSorted),
+	sort([ExpectedRunType, 'G_SIGNAL_ACCUMULATOR_FIRST_RUN'], RunTypeSorted),
 	flag(sig_handled, X, X+1).
 
 test(regress_test_obj_emit_sig_with_void) :-
@@ -1606,7 +1607,7 @@ test(regress_test_obj_emit_sig_with_hash) :-
 	g_value_init('GStrv', StringsGValue),
 	g_value_set_boxed(StringsGValue, ['first', 'second', 'third']),
 	g_value_init('RegressTestFlags', FlagsGValue),
-	g_value_set_flags(FlagsGValue, ['TEST_FLAG1', 'TEST_FLAG3']),
+	g_value_set_flags(FlagsGValue, ['REGRESS_TEST_FLAG1', 'REGRESS_TEST_FLAG3']),
 	g_value_init('RegressTestEnum', EnumGValue),
 	g_value_set_enum(EnumGValue, 'REGRESS_TEST_VALUE2'),
 	List = ['integer'-IntegerGValue,
@@ -2046,7 +2047,8 @@ test(regress_test_hash_table_callback) :-
 	X1 is X0 + 1,
 	assertion(flag(callback_handled, X1, X1)),
 	user:callback_user_data(NewList),
-	assertion(NewList = ['foo'-1, 'bar'-2, 'qux'-42]).
+	sort(NewList, NewListSorted),
+	assertion(NewListSorted = ['bar'-2, 'foo'-1, 'qux'-42]).
 
 test(regress_test_gerror_callback) :-
 	flag(callback_handled, X0, X0),
