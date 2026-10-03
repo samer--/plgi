@@ -5,3 +5,4 @@ configure
 Makefile
 scripts/pack-*/
 test/g-ir-cpp-*.c
+buildenv.sh
