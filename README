@@ -4,6 +4,8 @@ Perhaps the most notable use for PLGI is to write Gtk+ applications in Prolog. T
 
 A number of short example programs exist in the plgi/examples directory highlighting some of the capabilities of PLGI.
 
+This is a fork of Keri Harris's original version, which had gone stale. This fork has been updated to work with recent versions of SWI Prolog and GTK 3. It may work with GTK 4 but this has not been tested. The package has been renamed plgi2 so that it can be distributed directly from my Github repo without clashing with the original.
+-- Samer Abdallah, 3/10/2026.
 
 
 Installation
