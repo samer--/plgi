@@ -20,15 +20,15 @@ The easiest way to install PLGI is by using SWI-Prolog's package manager:
 
 	?- pack_install(plgi).
 
-PLGI can also be compiled and installed directly from sources in the following manner:
+PLGI can also be compiled and installed directly from sources in the following manner.
+[As of today, `swipl pack install .` is not invoking the build script, so the following method passes goals to swipl.]
 
 	% cd <this directory>
-	% swipl pack install .
+	% swipl -g 'pack_install(.,[interactive(false),link(false)])' -t halt
 
-This will ask if you want to install by linking the repository directory, which might
-be convenient for developing this package. The `plgi.so` binary will be built using
-SWI Prolog's own build system. This will deposit a file `buildenv.sh`, which can be
-`source`d for rebuilding outside of SWI Prolog.
+The `plgi.so` binary will be built using SWI Prolog's own build system. This will deposit a file `buildenv.sh`, which can be `source`d for rebuilding outside of SWI Prolog. To force a reinstall when the package is already installed, do:
+
+	% swipl -g 'pack_remove(plgi), pack_install(.,[interactive(false),link(false)])' -t halt
 
 [1] http://www.swi-prolog.org/
 [2] https://wiki.gnome.org/Projects/GLib
