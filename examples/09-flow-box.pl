@@ -7,7 +7,7 @@
 
 :- use_module(library(plgi)).
 
-:- plgi_use_namespace('Gtk').
+:- plgi_use_namespace('Gtk', '3.0').
 
 color_swatch_new(Color, Button) :-
 	plgi_struct_new('GdkRGBA'( red=0.0 ), RGBA),

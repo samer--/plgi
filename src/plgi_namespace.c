@@ -448,20 +448,14 @@ void plgi_register_namespace(atom_t namespace)
                  *      Foreign Predicates      *
                  *******************************/
 
-PLGI_PRED_IMPL(plgi_load_namespace)
+static gboolean
+plgi_require_namespace(atom_t name, const gchar *version)
 {
-  term_t namespace = FA0;
-
-  atom_t name;
   GError *error = NULL;
-
-  if ( !PL_get_atom(namespace, &name) )
-  { return PL_type_error("atom", namespace);
-  }
 
   g_irepository_require(NULL,                /* repository */
                         PL_atom_chars(name), /* namespace */
-                        NULL,                /* version */
+                        version,             /* version */
                         0,                   /* flags */
                         &error);             /* error */
 
@@ -474,6 +468,40 @@ PLGI_PRED_IMPL(plgi_load_namespace)
   plgi_register_namespace(name);
 
   return TRUE;
+}
+
+
+PLGI_PRED_IMPL(plgi_load_namespace)
+{
+  term_t namespace = FA0;
+
+  atom_t name;
+
+  if ( !PL_get_atom(namespace, &name) )
+  { return PL_type_error("atom", namespace);
+  }
+
+  return plgi_require_namespace(name, NULL);
+}
+
+
+PLGI_PRED_IMPL(plgi_load_namespace_version)
+{
+  term_t namespace = FA0;
+  term_t version   = FA1;
+
+  atom_t name;
+  gchar *version_str;
+
+  if ( !PL_get_atom(namespace, &name) )
+  { return PL_type_error("atom", namespace);
+  }
+
+  if ( !PL_get_atom_chars(version, &version_str) )
+  { return PL_type_error("atom", version);
+  }
+
+  return plgi_require_namespace(name, version_str);
 }
 
 

@@ -7,7 +7,7 @@
 
 :- use_module(library(plgi)).
 
-:- plgi_use_namespace('Gtk').
+:- plgi_use_namespace('Gtk', '3.0').
 
 on_name_combo_changed(ComboBox, _UserData) :-
 	gtk_combo_box_get_active_iter(ComboBox, Iter, IterIsValid),

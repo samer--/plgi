@@ -7,7 +7,7 @@
 
 :- use_module(library(plgi)).
 
-:- plgi_use_namespace('Gtk').
+:- plgi_use_namespace('Gtk', '3.0').
 
 dialog_type('INFO',     'GTK_MESSAGE_INFO',     'GTK_BUTTONS_OK').
 dialog_type('ERROR',    'GTK_MESSAGE_ERROR',    'GTK_BUTTONS_CANCEL').
