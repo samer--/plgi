@@ -29,7 +29,7 @@ OBJECTS= plgi.o plgi_argument.o plgi_array.o plgi_blob.o plgi_cache.o plgi_callb
 all: plgi.so
 
 plgi.so: $(OBJECTS)
-	$(LD) -o $@ $^ $(LDSOFLAGS) $(LDFLAGS)
+	$(LD) -o $@ $^ $(LDSOFLAGS) $(LDFLAGS) $(SWISOLIB)
 
 .c.o:
 	$(CC) $(CFLAGS) -o $@ -c $^
