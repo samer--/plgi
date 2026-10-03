@@ -186,8 +186,9 @@ plgi_callback_marshaller(ffi_cif  *cif,
     predicate_t print_message = PL_predicate("print_message", 2, "user");
     term_t ex_args = PL_new_term_refs(2);
     PL_put_atom(ex_args+0, PL_new_atom("warning"));
-    PL_put_term(ex_args+1, except);
-    PL_call_predicate(module, PL_Q_NODEBUG|PL_Q_CATCH_EXCEPTION, print_message, ex_args);
+    if ( PL_put_term(ex_args+1, except) )
+    { PL_call_predicate(module, PL_Q_NODEBUG|PL_Q_CATCH_EXCEPTION, print_message, ex_args);
+    }
     PL_clear_exception();
   }
   PL_cut_query(qid);
@@ -370,8 +371,8 @@ plgi_dealloc_callback(gpointer data)
 
   PLGI_debug("    dealloc callback closure: %p", closure);
 
-  g_callable_info_free_closure (closure->callback_info->info,
-                                closure->foreign_closure);
+  g_callable_info_destroy_closure (closure->callback_info->info,
+                                   closure->foreign_closure);
 
   if ( closure->user_data ) PL_erase(closure->user_data);
   g_free(closure);
@@ -407,10 +408,10 @@ plgi_term_to_callback(term_t               t,
   callback_info = callback_arg_info->callback_info;
   closure = g_malloc0(sizeof(*closure));
 
-  foreign_closure = g_callable_info_prepare_closure(callback_info->info,
-                                                    &closure->cif,
-                                                    plgi_callback_marshaller,
-                                                    closure);
+  foreign_closure = g_callable_info_create_closure(callback_info->info,
+                                                   &closure->cif,
+                                                   plgi_callback_marshaller,
+                                                   closure);
 
   PLGI_debug("    callback closure: %p, foreign closure: %p",
              closure, foreign_closure);
@@ -443,7 +444,8 @@ plgi_term_to_callback(term_t               t,
     destroy_arg->v_pointer = plgi_dealloc_callback;
   }
 
-  *callback = foreign_closure;
+  *callback = (gpointer)g_callable_info_get_closure_native_address(callback_info->info,
+                                                                   foreign_closure);
 
   return TRUE;
 }

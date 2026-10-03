@@ -13,7 +13,7 @@ PLGI has the following requirements:
 
 * SWI-Prolog >= 7.3.3 [1]
 * GLib-2.0 [2]
-* GObject Introspection >= 1.40 [3]
+* GObject Introspection >= 1.72 [3]
 * pkg-config [4]
 
 The easiest way to install PLGI is by using SWI-Prolog's package manager:

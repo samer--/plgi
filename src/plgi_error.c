@@ -102,8 +102,10 @@ plgi_print_warning(gchar *message)
   { return FALSE;
   }
 
-  PL_put_atom(warning_args+0, PL_new_atom("warning"));
-  PL_put_term(warning_args+1, warning);
+  if ( !PL_put_atom(warning_args+0, PL_new_atom("warning")) ||
+       !PL_put_term(warning_args+1, warning) )
+  { return FALSE;
+  }
   PL_call_predicate(NULL, PL_Q_NODEBUG|PL_Q_CATCH_EXCEPTION, print_message, warning_args);
 
   return TRUE;
