@@ -34,9 +34,10 @@ plgi.so: $(OBJECTS)
 .c.o:
 	$(CC) $(CFLAGS) -o $@ -c $^
 
+# NB. PACKSODIR is relative to the root of the package directory
 install: plgi.so
-	mkdir -p $(PACKSODIR)
-	$(INSTALL_PROGRAM) plgi.so $(PACKSODIR)
+	mkdir -p ../$(PACKSODIR)
+	$(INSTALL_PROGRAM) plgi.so ../$(PACKSODIR)
 
 clean:
 	rm -f *.o *.so
