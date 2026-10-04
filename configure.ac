@@ -11,6 +11,10 @@ AC_SUBST(GI_LIBS)
 AC_SUBST(GI_DATADIR)
 
 AC_PROG_INSTALL
+case "$(uname -s)" in
+    Darwin) CC=/usr/bin/cc ;;
+esac
+
 AC_PROG_CC([])
 
 AC_CHECK_SIZEOF(long)
