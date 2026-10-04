@@ -19,7 +19,7 @@
 ########################################################################
 
 CFLAGS+= -Wall -fPIC -I. @GI_CFLAGS@
-LDFLAGS= -Wall -Wl,-soname=plgi.so @GI_LIBS@
+LDFLAGS= -Wall @GI_LIBS@
 
 INSTALL=@INSTALL@
 INSTALL_PROGRAM=@INSTALL_PROGRAM@

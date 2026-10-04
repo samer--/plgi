@@ -20,6 +20,7 @@ PKG_CHECK_MODULES(GI,
     gio-2.0
     gobject-2.0
     gobject-introspection-1.0 >= 1.72
+    gmp
 )
 
 GI_DATADIR=$($PKG_CONFIG --variable=gidatadir gobject-introspection-1.0)
