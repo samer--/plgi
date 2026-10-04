@@ -18,6 +18,8 @@
 #
 ########################################################################
 
+CC= @CC@
+LD= @CC@
 CFLAGS+= -Wall -fPIC -I. @GI_CFLAGS@
 LDFLAGS= -Wall @GI_LIBS@
 
